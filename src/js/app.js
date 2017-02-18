@@ -1,7 +1,12 @@
+const hello = "Message";
+
+import * as THREE from 'three';
+import TWEEN from 'tween.js';
+
 var scene;
 var camera;
 var renderer;
-var cameraControls;
+var cube;
 
 function createRenderer() {
 	renderer = new THREE.WebGLRenderer();
@@ -19,17 +24,23 @@ function createCamera() {
 	camera.position.y = 16;
 	camera.position.z = 23;
 	camera.lookAt(scene.position);
-
-	cameraControls = new THREE.OrbitControls(camera);
 }
 
 function createLight() {
 	var spotLight = new THREE.SpotLight(0xffffff);
 	spotLight.position.set(10, 40, 20);
-	spotLight.shadowCameraNear = 20;
-	spotLight.shadowCameraFar = 50;
+	spotLight.shadow.camera.near = 20;
+	spotLight.shadow.camera.far = 50;
 	spotLight.castShadow = true;
 	scene.add(spotLight);
+}
+
+function createCube() {
+	cube = new THREE.Mesh( new THREE.CubeGeometry(10, 10, 10), new THREE.MeshNormalMaterial() );
+	cube.position.y = 5;
+	cube.position.z = 10;
+	cube.name = 'cube';
+	scene.add( cube );
 }
 
 function init() {
@@ -38,6 +49,7 @@ function init() {
 	createRenderer();
 	createCamera();
 	createLight();
+	createCube();
 	
 	document.body.appendChild(renderer.domElement);
 
@@ -45,8 +57,6 @@ function init() {
 }
 
 function render() {
-
-	cameraControls.update();
 
 	renderer.render(scene, camera);
 	requestAnimationFrame(render);
