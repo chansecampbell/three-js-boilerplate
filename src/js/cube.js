@@ -15,8 +15,13 @@ class Cube {
         this.mesh.name = 'cube';
     }
 
-    getMesh() {
+    get() {
         return this.mesh;
+    }
+
+    update() {
+        this.mesh.rotation.x += 0.01;
+        this.mesh.rotation.y += 0.01;
     }
 }
 
