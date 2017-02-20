@@ -40,6 +40,7 @@ class Scene {
 
 	createObjects() {
 		this.cube = new Cube(5, 5, 5);
+		this.cube.addName('test-cube');
 		this.scene.add(this.cube.get());
 	}
 
